@@ -10,5 +10,7 @@
         public string Description { get; set; }
         public int ShelterId { get; set; }
         public Shelter Shelter { get; set; }
+        public Icollection<Application> Applications { get; set; }
+        public Icollection<Favorite> Favorites { get; set; }
     }
 }
