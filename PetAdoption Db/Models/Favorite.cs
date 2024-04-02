@@ -6,4 +6,5 @@ public class Favorite
     public int PetId { get; set; }
     public int UserId { get; set; }
     public Pet Pet { get; set; }
+    public User User { get; set; }
 }
