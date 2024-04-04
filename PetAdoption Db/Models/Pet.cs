@@ -6,11 +6,11 @@
         public string Name { get; set; }
         public string Breed { get; set; }
         public string Age { get; set; }
-        public string Gender { get; set; }
+        public string Sex { get; set; }
         public string Description { get; set; }
         public int ShelterId { get; set; }
         public Shelter Shelter { get; set; }
-        public Icollection<Application> Applications { get; set; }
-        public Icollection<Favorite> Favorites { get; set; }
+        public ICollection<Application> Applications { get; set; }
+        public ICollection<Favorite> Favorites { get; set; }
     }
 }

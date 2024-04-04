@@ -1,4 +1,4 @@
-﻿namespace PetAdoption_Db.Models
+﻿namespace PetAdoption_Db.Models {
 
 public class Favorite
 {
@@ -7,4 +7,5 @@ public class Favorite
     public int UserId { get; set; }
     public Pet Pet { get; set; }
     public User User { get; set; }
+}
 }
