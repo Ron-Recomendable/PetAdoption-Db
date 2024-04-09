@@ -61,7 +61,7 @@ namespace PetAdoption_Db.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FavoriteId,PetId,UserId")] Favorite favorite)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(favorite);
                 await _context.SaveChangesAsync();
@@ -102,7 +102,7 @@ namespace PetAdoption_Db.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {

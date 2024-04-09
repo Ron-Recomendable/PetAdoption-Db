@@ -1,8 +1,12 @@
-﻿namespace PetAdoption_Db.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PetAdoption_Db.Models
 {
     public class Pet
     {
+        [Key]
         public int PetId { get; set; }
+        [Required]
         public string Name { get; set; }
         public string Breed { get; set; }
         public string Age { get; set; }

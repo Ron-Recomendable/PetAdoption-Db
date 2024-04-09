@@ -55,7 +55,7 @@ namespace PetAdoption_Db.Models
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ShelterId,Name,Location,Contact")] Shelter shelter)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(shelter);
                 await _context.SaveChangesAsync();
@@ -92,7 +92,7 @@ namespace PetAdoption_Db.Models
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
