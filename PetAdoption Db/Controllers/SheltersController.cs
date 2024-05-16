@@ -19,12 +19,18 @@ namespace PetAdoption_Db.Models
         }
 
         // GET: Shelters
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["LocationSortParm"] = sortOrder == "Location" ? "location_desc" : "Location";
+            ViewData["currentFilter"] = searchString;
+
             var shelter = from s in _context.Shelter
                            select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                shelter = shelter.Where(s => s.Name.Contains(searchString));
+            }
             switch (sortOrder)
             {
                 case "name_desc":
