@@ -29,7 +29,8 @@ namespace PetAdoption_Db.Models
                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
-                shelter = shelter.Where(s => s.Name.Contains(searchString));
+                shelter = shelter.Where(s => s.Name.Contains(searchString)
+                        || s.Location.Contains(searchString));
             }
             switch (sortOrder)
             {
