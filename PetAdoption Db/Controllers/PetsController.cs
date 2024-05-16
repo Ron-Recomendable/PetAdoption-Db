@@ -20,10 +20,28 @@ namespace PetAdoption_Db.Controllers
         }
 
         // GET: Pets
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            var petAdoptionInitialDbContext = _context.Pet.Include(p => p.Shelter);
-            return View(await petAdoptionInitialDbContext.ToListAsync());
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["BreedSortParm"] = sortOrder == "Breed" ? "breed_desc" : "Breed";
+            var pet = from s in _context.Pet
+                           select s;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    pet = pet.OrderByDescending(s => s.Name);
+                    break;
+                case "Breed":
+                    pet = pet.OrderBy(s => s.Breed);
+                    break;
+                case "breed_desc":
+                    pet = pet.OrderByDescending(s => s.Breed);
+                    break;
+                default:
+                    pet = pet.OrderBy(s => s.Name);
+                    break;
+            }
+            return View(await pet.AsNoTracking().ToListAsync());
         }
 
         // GET: Pets/Details/5
@@ -50,6 +68,7 @@ namespace PetAdoption_Db.Controllers
         {
             ViewData["ShelterId"] = new SelectList(_context.Shelter, "ShelterId", "ShelterId");
             return View();
+
         }
 
         // POST: Pets/Create

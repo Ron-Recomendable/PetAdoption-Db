@@ -19,9 +19,22 @@ namespace PetAdoption_Db.Models
         }
 
         // GET: Shelters
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View(await _context.Shelter.ToListAsync());
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["LocationSortParm"] = sortOrder == "Location" ? "location_desc" : "Location";
+            var shelter = from s in _context.Shelter
+                           select s;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    shelter = shelter.OrderByDescending(s => s.Name);
+                    break;
+                default:
+                    shelter = shelter.OrderBy(s => s.Name);
+                    break;
+            }
+            return View(await shelter.AsNoTracking().ToListAsync());
         }
 
         // GET: Shelters/Details/5
