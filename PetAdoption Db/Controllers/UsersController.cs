@@ -54,7 +54,7 @@ namespace PetAdoption_Db.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,Username,Email,Password,Role")] User user)
+        public async Task<IActionResult> Create([Bind("UserId,Username,Email,Role")] User user)
         {
             if (!ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace PetAdoption_Db.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId,Username,Email,Password,Role")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,Username,Email,Role")] User user)
         {
             if (id != user.UserId)
             {
