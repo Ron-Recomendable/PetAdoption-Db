@@ -24,8 +24,19 @@ namespace PetAdoption_Db.Controllers
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["BreedSortParm"] = sortOrder == "Breed" ? "breed_desc" : "Breed";
-            var pet = from s in _context.Pet
-                           select s;
+            ViewData["PetsFilter"] = searchString;
+
+            var pet = from p in _context.Pet
+                           select p;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                pet = pet.Where(p => p.Name.Contains(searchString)
+                        || p.Breed.Contains(searchString)
+                        || p.Age.Contains(searchString)
+                        || p.Sex.Contains(searchString)
+                        || p.Description.Contains(searchString));
+            }
+
             switch (sortOrder)
             {
                 case "name_desc":
