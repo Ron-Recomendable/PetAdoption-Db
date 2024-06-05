@@ -20,7 +20,7 @@ namespace PetAdoption_Db.Controllers
         }
 
         // GET: Pets
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["BreedSortParm"] = sortOrder == "Breed" ? "breed_desc" : "Breed";
@@ -40,16 +40,16 @@ namespace PetAdoption_Db.Controllers
             switch (sortOrder)
             {
                 case "name_desc":
-                    pet = pet.OrderByDescending(s => s.Name);
+                    pet = pet.OrderByDescending(p => p.Name);
                     break;
                 case "Breed":
-                    pet = pet.OrderBy(s => s.Breed);
+                    pet = pet.OrderBy(p => p.Breed);
                     break;
                 case "breed_desc":
-                    pet = pet.OrderByDescending(s => s.Breed);
+                    pet = pet.OrderByDescending(p => p.Breed);
                     break;
                 default:
-                    pet = pet.OrderBy(s => s.Name);
+                    pet = pet.OrderBy(p => p.Name);
                     break;
             }
             return View(await pet.AsNoTracking().ToListAsync());
