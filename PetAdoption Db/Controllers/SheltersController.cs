@@ -19,11 +19,23 @@ namespace PetAdoption_Db.Models
         }
 
         // GET: Shelters
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["LocationSortParm"] = sortOrder == "Location" ? "location_desc" : "Location";
+            ViewData["CurrentSort"] = sortOrder;
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
             ViewData["currentFilter"] = searchString;
+            
+          
 
             var shelter = from s in _context.Shelter
                            select s;
@@ -41,7 +53,8 @@ namespace PetAdoption_Db.Models
                     shelter = shelter.OrderBy(s => s.Name);
                     break;
             }
-            return View(await shelter.AsNoTracking().ToListAsync());
+            int pageSize = 3;
+            return View(await PaginatedList<Shelter>.CreateAsync(shelter.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Shelters/Details/5
