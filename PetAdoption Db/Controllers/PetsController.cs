@@ -20,11 +20,22 @@ namespace PetAdoption_Db.Controllers
         }
 
         // GET: Pets
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["BreedSortParm"] = sortOrder == "Breed" ? "breed_desc" : "Breed";
+            ViewData["CurrentSort"] = sortOrder;
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
             ViewData["PetsFilter"] = searchString;
+
 
             var pet = from p in _context.Pet
                            select p;
@@ -36,6 +47,7 @@ namespace PetAdoption_Db.Controllers
                         || p.Sex.Contains(searchString)
                         || p.Description.Contains(searchString));
             }
+       
 
             switch (sortOrder)
             {
@@ -52,7 +64,8 @@ namespace PetAdoption_Db.Controllers
                     pet = pet.OrderBy(p => p.Name);
                     break;
             }
-            return View(await pet.AsNoTracking().ToListAsync());
+            int pageSize = 3;
+            return View(await PaginatedList<Pet>.CreateAsync(pet.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Pets/Details/5

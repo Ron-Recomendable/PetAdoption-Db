@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PetAdoption_Db.Models.Pet>
+﻿@model PaginatedList<PetAdoption_Db.Models.Pet>
 
 @{
     ViewData["Pets"] = "Pets";
@@ -24,22 +24,22 @@
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Name)</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Name</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["BreedSortParm"]">@Html.DisplayNameFor(model => model.Breed)</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["BreedSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Breed</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Age)
+                Age
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Sex)
+                Sex
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                Description
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Shelter)
+                Shelter
             </th>
             <th></th>
         </tr>
@@ -74,3 +74,22 @@
 }
     </tbody>
 </table>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
