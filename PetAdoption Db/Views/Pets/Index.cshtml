@@ -4,6 +4,23 @@
     ViewData["Pets"] = "Pets";
 }
 
+<style>
+    .edit-button {
+        max-width: 13px;
+        max-height: 13px;
+    }
+
+    .details-button {
+        max-height: 13px;
+        max-width: 13px;
+    }
+
+    .delete-button {
+        max-height: 13px;
+        max-width: 13px;
+    }
+</style>
+
 <h1>Pets</h1>
 
 <p>
@@ -59,16 +76,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Sex)
             </td>
-            <td>
+            <td class="description">
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Shelter.ShelterId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.PetId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PetId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PetId">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.PetId"><img class="edit-button" src="https://www.svgrepo.com/show/146083/pencil-edit-button.svg" alt="Alternate Text"/></a> |
+                    <a asp-action="Details" asp-route-id="@item.PetId"><img class="details-button" src="https://uxwing.com/wp-content/themes/uxwing/download/file-and-folder-type/paper-icon.png" alt="Alternate Text" /></a> |
+                    <a asp-action="Delete" asp-route-id="@item.PetId"><img class="delete-button" src="https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/trash-512.png" alt="Alternate Text" /></a>
             </td>
         </tr>
 }

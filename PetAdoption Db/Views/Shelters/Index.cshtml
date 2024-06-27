@@ -3,6 +3,20 @@
 @{
     ViewData["Shelter"] = "Shelter";
 }
+<style>
+    .edit-button{
+        max-width: 13px;
+        max-height: 13px;
+    }
+    .details-button{
+    max-height:13px;
+    max-width:13px;
+    }
+    .delete-button{
+        max-height: 13px;
+        max-width: 13px;
+    }
+</style>
 
 <h1>Shelter</h1>
 
@@ -48,9 +62,10 @@
                 @Html.DisplayFor(modelItem => item.Contact)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ShelterId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ShelterId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ShelterId">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.ShelterId"><img class="edit-button" src="https://www.svgrepo.com/show/146083/pencil-edit-button.svg" alt="Alternate Text" /></a> |
+                    <a asp-action="Details" asp-route-id="@item.ShelterId">
+                        <img class="details-button" src="https://uxwing.com/wp-content/themes/uxwing/download/file-and-folder-type/paper-icon.png" alt="Alternate Text"/></a> |
+                    <a asp-action="Delete" asp-route-id="@item.ShelterId"><img class="delete-button" src="https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/trash-512.png" alt="Alternate Text" /></a>
             </td>
         </tr>
 }
