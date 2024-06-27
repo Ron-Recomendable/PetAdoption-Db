@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -76,6 +77,7 @@ namespace PetAdoption_Db.Models
         }
 
         // GET: Shelters/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -98,6 +100,7 @@ namespace PetAdoption_Db.Models
         }
 
         // GET: Shelters/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -149,6 +152,7 @@ namespace PetAdoption_Db.Models
         }
 
         // GET: Shelters/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -167,6 +171,7 @@ namespace PetAdoption_Db.Models
         }
 
         // POST: Shelters/Delete/5
+    
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
