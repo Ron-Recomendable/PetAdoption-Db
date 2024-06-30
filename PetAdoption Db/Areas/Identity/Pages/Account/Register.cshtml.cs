@@ -83,7 +83,7 @@ namespace PetAdoption_Db.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            [Required(ErrorMessage = "Please enter name"), MinLength(5)]
+            [Required(ErrorMessage = "Please enter name"), MinLength(5)] //Ensures that the 'Username' is at least 5 characters long
             [DataType(DataType.Text)]
             [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\s]{1,40}$", ErrorMessage = "Username must contain at least one lowercase letter, one uppercase letter, and can only include letters and spaces.")]
             public string Username { get; set; }

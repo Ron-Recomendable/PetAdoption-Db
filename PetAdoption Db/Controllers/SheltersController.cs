@@ -20,7 +20,8 @@ namespace PetAdoption_Db.Models
         }
 
         // GET: Shelters
-        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber) //The string searchString, string currentFilter, and int? pageNumber is
+                                                                                                                             //for implementing search functionality, filtering and pagination
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["LocationSortParm"] = sortOrder == "Location" ? "location_desc" : "Location";
@@ -43,7 +44,7 @@ namespace PetAdoption_Db.Models
             if (!String.IsNullOrEmpty(searchString))
             {
                 shelter = shelter.Where(s => s.Name.Contains(searchString)
-                        || s.Location.Contains(searchString));
+                        || s.Location.Contains(searchString)); //For searching Shelter Locations
             }
             switch (sortOrder)
             {
@@ -54,7 +55,7 @@ namespace PetAdoption_Db.Models
                     shelter = shelter.OrderBy(s => s.Name);
                     break;
             }
-            int pageSize = 3;
+            int pageSize = 3; //limit the page size to only 3 data
             return View(await PaginatedList<Shelter>.CreateAsync(shelter.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 

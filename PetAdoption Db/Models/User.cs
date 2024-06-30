@@ -14,14 +14,16 @@ namespace PetAdoption_Db.Models
     {
         [Required]
         public int UserId { get; set; }
-        [Required(ErrorMessage = "Please enter name"), MaxLength(50)]
+        [Required(ErrorMessage = "Please enter name"), MaxLength(50)] //Ensures that the 'Username' cannot be null or empty and provides an error message if the validation fails and limits the
+                                                                      //length of the Username characters to 50 characters
+                                                                        
         [DataType(DataType.Text)]
         [Display(Name = "Username")]
         public string Username { get; set; }
-        [Required(ErrorMessage = "Please enter your EmailAddress")]
-        [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "Please enter your EmailAddress")] //Ensures that the 'Email' is not null or emmpty
+        [DataType(DataType.EmailAddress)] //Specifies data type to ensure that the user inputs a valid email address.
         public string Email { get; set; }
-        [Required]
+        [Required] //This is also requiredS
         public string Role { get; set; }
     }
 }

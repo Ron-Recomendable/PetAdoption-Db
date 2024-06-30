@@ -23,7 +23,7 @@
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.Username" class="form-control" autocomplete="number" aria-required="true" placeholder="Username" />
+                <input asp-for="Input.Username" class="form-control" autocomplete="number" aria-required="true" placeholder="Username" /> @* Added a custom field Username *@
                 <label asp-for="Input.Username">Username</label>
                 <span asp-validation-for="Input.Username" class="text-danger"></span>
             </div>
@@ -33,7 +33,7 @@
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.Contact" class="form-control" autocomplete="number" aria-required="true" placeholder="+64" />
+                <input asp-for="Input.Contact" class="form-control" autocomplete="number" aria-required="true" placeholder="+64" /> @* Added a custom field Phone Number *@
                 <label asp-for="Input.Contact">Contact</label>
                 <span asp-validation-for="Input.Contact" class="text-danger"></span>
             </div>
