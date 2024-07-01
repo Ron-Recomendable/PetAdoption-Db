@@ -55,7 +55,7 @@ namespace PetAdoption_Db.Models
                     shelter = shelter.OrderBy(s => s.Name);
                     break;
             }
-            int pageSize = 3; //limit the page size to only 3 data
+            int pageSize = 5; //limit the page size to only 5 data
             return View(await PaginatedList<Shelter>.CreateAsync(shelter.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
