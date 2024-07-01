@@ -10,7 +10,6 @@ namespace PetAdoption_Db.Models
         public string Name { get; set; }
         public string Breed { get; set; }
         public string Age { get; set; }
-        [DataType(DataType.MultilineText)]
         public string Sex { get; set; }
         [Required(ErrorMessage = "Please provide description")]
         [StringLength(100, ErrorMessage = "Do not enter more than 100 characters")]//This annotation limits the characters in description to 100 characters.
