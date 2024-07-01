@@ -78,7 +78,7 @@ namespace PetAdoption_Db.Models
         }
 
         // GET: Shelters/Create
-        [Authorize]
+        [Authorize] //This is to restrict the CRUD operations to only logged in Users
         public IActionResult Create()
         {
             return View();
