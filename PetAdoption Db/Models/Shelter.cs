@@ -7,7 +7,7 @@ namespace PetAdoption_Db.Models
         [Key]
         public int ShelterId { get; set; }
         [DataType(DataType.Text)]
-        [Required(ErrorMessage = "Please enter name"), MaxLength(50)]//This annotation can't be skipped, and limits the characters to 30 letters.
+        [Required(ErrorMessage = "Please enter name"), MaxLength(50)]//This annotation can't be skipped, and limits the characters to 50 letters.
         [Display(Name = "Name")]
         public string Name { get; set; }
         

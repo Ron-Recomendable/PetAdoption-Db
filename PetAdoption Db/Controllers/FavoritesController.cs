@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +48,7 @@ namespace PetAdoption_Db.Controllers
         }
 
         // GET: Favorites/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["PetId"] = new SelectList(_context.Pet, "PetId", "PetId");
@@ -73,6 +75,7 @@ namespace PetAdoption_Db.Controllers
         }
 
         // GET: Favorites/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -128,6 +131,7 @@ namespace PetAdoption_Db.Controllers
         }
 
         // GET: Favorites/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -70,7 +71,6 @@ namespace PetAdoption_Db.Controllers
                     break;
             }
             int pageSize = 3;
-   
             return View(await PaginatedList<Pet>.CreateAsync(pet.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
@@ -94,6 +94,7 @@ namespace PetAdoption_Db.Controllers
         }
 
         // GET: Pets/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["ShelterId"] = new SelectList(_context.Shelter, "ShelterId", "Name");
@@ -119,6 +120,7 @@ namespace PetAdoption_Db.Controllers
         }
 
         // GET: Pets/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -172,6 +174,7 @@ namespace PetAdoption_Db.Controllers
         }
 
         // GET: Pets/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

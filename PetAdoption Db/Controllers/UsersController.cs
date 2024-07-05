@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,9 +21,48 @@ namespace PetAdoption_Db.Controllers
         }
 
         // GET: Users
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
-            return View(await _context.User.ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["UsernameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Username_desc" : "";
+            ViewData["RoleSortParm"] = sortOrder == "Role" ? "role_desc" : "Role";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+            var user = from u in _context.User
+                           select u;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                user = user.Where(u => u.Username.Contains(searchString)
+                                       || u.Email.Contains(searchString)
+                                       || u.Role.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "Username_desc":
+                    user = user.OrderByDescending(u => u.Username);
+                    break;
+                case "Role":
+                    user = user.OrderBy(u => u.Role);
+                    break;
+                case "Role_desc":
+                    user = user.OrderByDescending(u => u.Role);
+                    break;
+                default:
+                    user = user.OrderBy(u => u.Username);
+                    break;
+            }
+            int pageSize = 5;
+            return View(await PaginatedList<User>.CreateAsync(user.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Users/Details/5
@@ -44,6 +84,7 @@ namespace PetAdoption_Db.Controllers
         }
 
         // GET: Users/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -66,6 +107,7 @@ namespace PetAdoption_Db.Controllers
         }
 
         // GET: Users/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -117,6 +159,7 @@ namespace PetAdoption_Db.Controllers
         }
 
         // GET: Users/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

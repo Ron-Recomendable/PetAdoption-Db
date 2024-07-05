@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,10 +21,40 @@ namespace PetAdoption_Db.Controllers
         }
 
         // GET: Applications
-        public async Task<IActionResult> Index()
+        /*public async Task<IActionResult> Index()
         {
             var petAdoptionInitialDbContext = _context.Application.Include(a => a.Pet).Include(a => a.User);
             return View(await petAdoptionInitialDbContext.ToListAsync());
+        }*/
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        {
+            ViewData["ApplicationDateSortParm"] = String.IsNullOrEmpty(sortOrder) ? "ApplicationDate_desc" : "";
+            ViewData["StatusSortParm"] = sortOrder == "Status" ? "status_desc" : "Status";
+            ViewData["CurrentFilter"] = searchString;
+
+            var application = from a in _context.Application
+                       select a;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                application = application.Where(a => a.Status.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "ApplicationDate_desc":
+                    application = application.OrderByDescending(a => a.ApplicationDate);
+                    break;
+                case "Status":
+                    application = application.OrderBy(a => a.Status);
+                    break;
+                case "Status_desc":
+                    application = application.OrderByDescending(u => u.Status);
+                    break;
+                default:
+                    application = application.OrderBy(a => a.ApplicationDate);
+                    break;
+            }
+            
+            return View(await application.AsNoTracking().ToListAsync());
         }
 
         // GET: Applications/Details/5
@@ -47,6 +78,7 @@ namespace PetAdoption_Db.Controllers
         }
 
         // GET: Applications/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["PetID"] = new SelectList(_context.Pet, "PetId", "PetId");
@@ -73,6 +105,7 @@ namespace PetAdoption_Db.Controllers
         }
 
         // GET: Applications/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -128,6 +161,7 @@ namespace PetAdoption_Db.Controllers
         }
 
         // GET: Applications/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
