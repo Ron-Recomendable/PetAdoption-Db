@@ -22,6 +22,9 @@ namespace PetAdoption_Db.Controllers
         // GET: Pets
         public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
         {
+
+      
+
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["BreedSortParm"] = sortOrder == "Breed" ? "breed_desc" : "Breed";
             ViewData["CurrentSort"] = sortOrder;
@@ -37,8 +40,10 @@ namespace PetAdoption_Db.Controllers
             ViewData["PetsFilter"] = searchString;
 
 
-            var pet = from p in _context.Pet
+            var pet = from p in _context.Pet.Include(p => p.Shelter)
+                  
                            select p;
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 pet = pet.Where(p => p.Name.Contains(searchString)
@@ -65,6 +70,7 @@ namespace PetAdoption_Db.Controllers
                     break;
             }
             int pageSize = 3;
+   
             return View(await PaginatedList<Pet>.CreateAsync(pet.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
@@ -90,13 +96,13 @@ namespace PetAdoption_Db.Controllers
         // GET: Pets/Create
         public IActionResult Create()
         {
-            ViewData["ShelterId"] = new SelectList(_context.Shelter, "ShelterId", "ShelterId");
+            ViewData["ShelterId"] = new SelectList(_context.Shelter, "ShelterId", "Name");
             return View();
 
         }
 
         // POST: Pets/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // To protect from overposting attacks, enable the specific properties you want to biDnd to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -108,7 +114,7 @@ namespace PetAdoption_Db.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ShelterId"] = new SelectList(_context.Shelter, "ShelterId", "ShelterId", pet.ShelterId);
+            ViewData["ShelterId"] = new SelectList(_context.Shelter, "ShelterId", "Name", pet.Shelter.Name);
             return View(pet);
         }
 

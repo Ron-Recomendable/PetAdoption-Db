@@ -1,4 +1,5 @@
-﻿@model PaginatedList<PetAdoption_Db.Models.Pet>
+﻿
+@model PaginatedList<PetAdoption_Db.Models.Pet>
 
 @{
     ViewData["Pets"] = "Pets";
@@ -80,7 +81,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Shelter.ShelterId)
+                @Html.DisplayFor(modelItem => item.Shelter.Name)
             </td>
             <td>
                     <a asp-action="Edit" asp-route-id="@item.PetId"><img class="edit-button" src="https://www.svgrepo.com/show/146083/pencil-edit-button.svg" alt="Alternate Text"/></a> |
