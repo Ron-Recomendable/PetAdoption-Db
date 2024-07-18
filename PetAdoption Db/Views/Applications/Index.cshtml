@@ -30,10 +30,10 @@
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["ApplicationDateSortParm"]">@Html.DisplayNameFor(model => model.ApplicationDate)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User)
+                @Html.DisplayNameFor(model => model.User.Username)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Pet)
+                Pet Name
             </th>
             <th></th>
         </tr>
@@ -51,7 +51,7 @@
                 @Html.DisplayFor(modelItem => item.User.Username)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Pet.Breed)
+                @Html.DisplayFor(modelItem => item.Pet.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ApplicationID">Edit</a> |

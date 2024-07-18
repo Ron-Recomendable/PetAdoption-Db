@@ -33,7 +33,9 @@ namespace PetAdoption_Db.Controllers
             ViewData["CurrentFilter"] = searchString;
 
             var application = from a in _context.Application
-                       select a;
+                .Include(a => a.Pet)
+                .Include(a => a.User)
+                              select a;
             if (!String.IsNullOrEmpty(searchString))
             {
                 application = application.Where(a => a.Status.Contains(searchString));
@@ -81,8 +83,8 @@ namespace PetAdoption_Db.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            ViewData["PetID"] = new SelectList(_context.Pet, "PetId", "PetId");
-            ViewData["UserID"] = new SelectList(_context.User, "UserId", "UserId");
+            ViewData["PetID"] = new SelectList(_context.Pet, "PetId", "Name");
+            ViewData["UserID"] = new SelectList(_context.User, "UserId", "Username");
             return View();
         }
 
@@ -99,8 +101,8 @@ namespace PetAdoption_Db.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PetID"] = new SelectList(_context.Pet, "PetId", "PetId", application.PetID);
-            ViewData["UserID"] = new SelectList(_context.User, "UserId", "UserId", application.UserID);
+            ViewData["PetID"] = new SelectList(_context.Pet, "PetId", "Name", application.Pet.Name);
+            ViewData["UserID"] = new SelectList(_context.User, "UserId", "Username", application.User.Username);
             return View(application);
         }
 
@@ -118,8 +120,8 @@ namespace PetAdoption_Db.Controllers
             {
                 return NotFound();
             }
-            ViewData["PetID"] = new SelectList(_context.Pet, "PetId", "PetId", application.PetID);
-            ViewData["UserID"] = new SelectList(_context.User, "UserId", "UserId", application.UserID);
+            ViewData["PetID"] = new SelectList(_context.Pet, "PetId", "Name", application.PetID);
+            ViewData["UserID"] = new SelectList(_context.User, "UserId", "Username", application.UserID);
             return View(application);
         }
 
@@ -155,8 +157,8 @@ namespace PetAdoption_Db.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PetID"] = new SelectList(_context.Pet, "PetId", "PetId", application.PetID);
-            ViewData["UserID"] = new SelectList(_context.User, "UserId", "UserId", application.UserID);
+            ViewData["PetID"] = new SelectList(_context.Pet, "PetId", "Name", application.Pet.Name);
+            ViewData["UserID"] = new SelectList(_context.User, "UserId", "Username", application.User.Username);
             return View(application);
         }
 
