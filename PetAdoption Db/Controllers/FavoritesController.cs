@@ -51,8 +51,8 @@ namespace PetAdoption_Db.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            ViewData["PetId"] = new SelectList(_context.Pet, "PetId", "PetId");
-            ViewData["UserId"] = new SelectList(_context.User, "UserId", "UserId");
+            ViewData["PetId"] = new SelectList(_context.Pet, "PetId", "Breed");
+            ViewData["UserId"] = new SelectList(_context.User, "UserId", "Username");
             return View();
         }
 
@@ -69,8 +69,8 @@ namespace PetAdoption_Db.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PetId"] = new SelectList(_context.Pet, "PetId", "PetId", favorite.PetId);
-            ViewData["UserId"] = new SelectList(_context.User, "UserId", "UserId", favorite.UserId);
+            ViewData["PetId"] = new SelectList(_context.Pet, "PetId", "Breed", favorite.Pet.Breed);
+            ViewData["UserId"] = new SelectList(_context.User, "UserId", "Username", favorite.User.Username);
             return View(favorite);
         }
 
