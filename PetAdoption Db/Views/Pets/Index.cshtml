@@ -6,6 +6,9 @@
 }
 
 <style>
+    body {
+        background: #FDF7E4;
+    }
     .edit-button {
         max-width: 13px;
         max-height: 13px;
@@ -20,20 +23,89 @@
         max-height: 13px;
         max-width: 13px;
     }
+    footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: rgb(0,0,0);
+        background-color: rgb(0,0,0,0.4);
+        color: white;
+        text-align: center;
+    }
+
+    .search {
+        border-radius: 20px 0 0 20px;
+        border: 1px solid #ccc;
+        margin: 0;
+        padding: 3px;
+        outline: none;
+       /*  max-height: 2em; */
+    }
+    #search_button {
+        border-radius: 0 20px 20px 0;
+        border: 1px solid #ccc;
+        background-color: #007bff;
+        color: #fff;
+        border-left: none; 
+        cursor: pointer;
+        margin-right: 10px;
+        padding: 3px 10px;
+        /* max-height: 2em; */
+    }
+    #search_button:hover {
+       background-color: #0056b3;
+    }
+    .back_list {
+        color: #007bff;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px 15px;
+        border-radius: 5px;
+        display: inline-block;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .back_list:hover {
+   
+        color: #0056b3;
+        text-decoration: underline;
+    }
+    .par {
+        display: flex;
+        align-items: center;
+    }
+
+    .create_new {
+        display: inline-block;
+        background-color: #007bff;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        transition: background-color 0.3s;
+    }
+  
+  
 </style>
 
 <h1>Pets</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="create_new">Create New</a>
 </p>
 
 <form asp-action="Index" method="get">
-    <div class="form-actions no-color">
-        <p>
-            <input type="text" name="SearchString" value="@ViewData["PetFilter"]" />
-            <input type="submit" value="Search" class="btn btn-default" /> |
-            <a asp-action="Index">Back to Full List</a>
+    <div class="form-actions no-color" id="div">
+        <p class="par">
+            <input type="text" name="SearchString" value="@ViewData["PetFilter"]" class="search"/>
+            <input type="submit" value="Search" class="btn btn-default" id="search_button"/> 
+            <a asp-action="Index" class="back_list">Back to Full List</a>
         </p>
     </div>
 </form>

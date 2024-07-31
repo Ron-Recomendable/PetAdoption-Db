@@ -69,8 +69,8 @@ namespace PetAdoption_Db.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PetId"] = new SelectList(_context.Pet, "PetId", "Breed", favorite.Pet.Breed);
-            ViewData["UserId"] = new SelectList(_context.User, "UserId", "Username", favorite.User.Username);
+            ViewData["PetId"] = new SelectList(_context.Pet, "PetId", "Breed", favorite.PetId);
+            ViewData["UserId"] = new SelectList(_context.User, "UserId", "Username", favorite.UserId);
             return View(favorite);
         }
 

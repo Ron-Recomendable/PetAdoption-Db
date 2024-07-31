@@ -4,18 +4,108 @@
     ViewData["Applications"] = "Applications";
 }
 
+<style>
+    body {
+        background: #FDF7E4;
+    }
+    .edit-button {
+        max-width: 13px;
+        max-height: 13px;
+    }
+
+    .details-button {
+        max-height: 13px;
+        max-width: 13px;
+    }
+
+    .delete-button {
+        max-height: 13px;
+        max-width: 13px;
+    }
+    footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: rgb(0,0,0);
+        background-color: rgb(0,0,0,0.4);
+        color: white;
+        text-align: center;
+    }
+
+    .search {
+        border-radius: 20px 0 0 20px;
+        border: 1px solid #ccc;
+        margin: 0;
+        padding: 3px;
+        outline: none;
+        /*  max-height: 2em; */
+    }
+
+    #search_button {
+        border-radius: 0 20px 20px 0;
+        border: 1px solid #ccc;
+        background-color: #007bff;
+        color: #fff;
+        border-left: none;
+        cursor: pointer;
+        margin-right: 10px;
+        padding: 3px 10px;
+        /* max-height: 2em; */
+    }
+
+        #search_button:hover {
+            background-color: #0056b3;
+        }
+
+    .back_list {
+        color: #007bff;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px 15px;
+        border-radius: 5px;
+        display: inline-block;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+        .back_list:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+    .par {
+        display: flex;
+        align-items: center;
+    }
+
+    .create_new {
+        display: inline-block;
+        background-color: #007bff;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        transition: background-color 0.3s;
+    }
+</style>
+
 <h1>Applications</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="create_new">Create New</a>
 </p>
 
 <form asp-action="Index" method="get">
-    <div class="form-actions no-color">
-        <p>
-            Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
-            <input type="submit" value="Search" class="btn btn-default" /> |
-            <a asp-action="Index">Back to Full List</a>
+    <div class="form-actions no-color" id="div">
+        <p class="par">
+            <input type="text" name="SearchString" value="@ViewData["PetFilter"]" class="search" />
+            <input type="submit" value="Search" class="btn btn-default" id="search_button" />
+            <a asp-action="Index" class="back_list">Back to Full List</a>
         </p>
     </div>
 </form>
@@ -54,9 +144,9 @@
                 @Html.DisplayFor(modelItem => item.Pet.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ApplicationID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ApplicationID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ApplicationID">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.ApplicationID"><img class="edit-button" src="https://www.svgrepo.com/show/146083/pencil-edit-button.svg" alt="Alternate Text" /></a> |
+                    <a asp-action="Details" asp-route-id="@item.ApplicationID"><img class="details-button" src="https://uxwing.com/wp-content/themes/uxwing/download/file-and-folder-type/paper-icon.png" alt="Alternate Text" /></a> |
+                    <a asp-action="Delete" asp-route-id="@item.ApplicationID"><img class="delete-button" src="https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/trash-512.png" alt="Alternate Text" /></a>
             </td>
         </tr>
 }

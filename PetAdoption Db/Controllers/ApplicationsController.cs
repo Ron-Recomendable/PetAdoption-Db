@@ -101,8 +101,8 @@ namespace PetAdoption_Db.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PetID"] = new SelectList(_context.Pet, "PetId", "Name", application.Pet.Name);
-            ViewData["UserID"] = new SelectList(_context.User, "UserId", "Username", application.User.Username);
+            ViewData["PetID"] = new SelectList(_context.Pet, "PetId", "Name", application.PetID);
+            ViewData["UserID"] = new SelectList(_context.User, "UserId", "Username", application.UserID);
             return View(application);
         }
 

@@ -4,10 +4,54 @@
     ViewData["Favorites"] = "Favorites";
 }
 
+<style>
+    body {
+        background: #FDF7E4;
+    }
+    .edit-button {
+        max-width: 13px;
+        max-height: 13px;
+    }
+
+    .details-button {
+        max-height: 13px;
+        max-width: 13px;
+    }
+
+    .delete-button {
+        max-height: 13px;
+        max-width: 13px;
+    }
+    footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: rgb(0,0,0);
+        background-color: rgb(0,0,0,0.4);
+        color: white;
+        text-align: center;
+    }
+
+    .create_new {
+        display: inline-block;
+        background-color: #007bff;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        transition: background-color 0.3s;
+    }
+</style>
+
 <h1>Favorites</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="create_new">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -31,9 +75,9 @@
                 @Html.DisplayFor(modelItem => item.User.Username)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.FavoriteId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FavoriteId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FavoriteId">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.FavoriteId"><img class="edit-button" src="https://www.svgrepo.com/show/146083/pencil-edit-button.svg" alt="Alternate Text" /></a> |
+                    <a asp-action="Details" asp-route-id="@item.FavoriteId"><img class="details-button" src="https://uxwing.com/wp-content/themes/uxwing/download/file-and-folder-type/paper-icon.png" alt="Alternate Text" /></a> |
+                    <a asp-action="Delete" asp-route-id="@item.FavoriteId"><img class="delete-button" src="https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/trash-512.png" alt="Alternate Text" /></a>
             </td>
         </tr>
 }

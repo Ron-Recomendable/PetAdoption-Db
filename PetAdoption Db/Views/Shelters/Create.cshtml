@@ -4,6 +4,40 @@
     ViewData["Title"] = "Create";
 }
 
+<style>
+    body {
+        background: #FDF7E4;
+    }
+    footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: rgb(0,0,0);
+        background-color: rgb(0,0,0,0.4);
+        color: white;
+        text-align: center;
+    }
+    .back_list {
+        color: #007bff;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px 15px 10px 0;
+        margin-left:0;
+        border-radius: 5px;
+        display: inline-block;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    .back_list:hover {
+        color: #0056b3;
+        text-decoration: underline;
+        }
+        #create_button {
+            margin-top: 15px
+        }
+</style>
+
 <h1>Create</h1>
 
 <h4>Shelter</h4>
@@ -28,14 +62,14 @@
                 <span asp-validation-for="Contact" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" id="create_button" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="back_list">Back to List</a>
 </div>
 
 @section Scripts {

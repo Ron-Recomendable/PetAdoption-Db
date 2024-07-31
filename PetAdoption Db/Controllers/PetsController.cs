@@ -70,7 +70,7 @@ namespace PetAdoption_Db.Controllers
                     pet = pet.OrderBy(p => p.Name);
                     break;
             }
-            int pageSize = 3;
+            int pageSize = 5;
             return View(await PaginatedList<Pet>.CreateAsync(pet.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
@@ -115,7 +115,7 @@ namespace PetAdoption_Db.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ShelterId"] = new SelectList(_context.Shelter, "ShelterId", "Name", pet.Shelter.Name);
+            ViewData["ShelterId"] = new SelectList(_context.Shelter, "ShelterId", "Name", pet.ShelterId);
             return View(pet);
         }
 
@@ -133,7 +133,7 @@ namespace PetAdoption_Db.Controllers
             {
                 return NotFound();
             }
-            ViewData["ShelterId"] = new SelectList(_context.Shelter, "ShelterId", "ShelterId", pet.ShelterId);
+            ViewData["ShelterId"] = new SelectList(_context.Shelter, "ShelterId", "Name", pet.ShelterId);
             return View(pet);
         }
 
@@ -169,7 +169,7 @@ namespace PetAdoption_Db.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ShelterId"] = new SelectList(_context.Shelter, "ShelterId", "ShelterId", pet.ShelterId);
+            ViewData["ShelterId"] = new SelectList(_context.Shelter, "ShelterId", "Name", pet.ShelterId);
             return View(pet);
         }
 
